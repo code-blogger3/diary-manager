@@ -1,12 +1,41 @@
-// import { useState } from "react";
 import "./App.css";
-import { Button, useColorMode } from "@chakra-ui/react";
+import Header from "./components/Header";
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import Home from "./pages/Home";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import CreateDiary from "./pages/CreateDiary";
 
 function App() {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const Layout = () => {
+    return (
+      <>
+        <Header />
+        <Outlet />
+      </>
+    );
+  };
+  const BrowserRoutes = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        { path: "/", element: <Home /> },
+        {
+          path: "/register",
+          element: <Register />,
+        },
+        {
+          path: "/login",
+          element: <Login />,
+        },
+        { path: "/:diaryID", element: <CreateDiary /> },
+      ],
+    },
+  ]);
   return (
     <>
-      <Button onClick={toggleColorMode}>hi</Button>
+      <RouterProvider router={BrowserRoutes} />;
     </>
   );
 }
