@@ -19,7 +19,7 @@ function Header() {
           onClick={toggleColorMode}
         />
         <Button onClick={() => navigate("/register")}>Sign Up</Button>
-        <Button>Sign in</Button>
+        <Button onClick={() => navigate("/login")}>Sign in</Button>
       </Flex>
     </>
   );
