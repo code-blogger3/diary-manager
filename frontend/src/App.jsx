@@ -35,7 +35,7 @@ function App() {
   ]);
   return (
     <>
-      <RouterProvider router={BrowserRoutes} />;
+      <RouterProvider router={BrowserRoutes} />
     </>
   );
 }
