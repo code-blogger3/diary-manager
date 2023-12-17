@@ -20,4 +20,26 @@ const signUp = asyncHandler(async (req, res) => {
   res.json(new ApiResponse(200, "User registered successfully"));
 });
 
-export { signUp };
+const signIn = asyncHandler(async (req, res) => {
+  const { usernameOremail, password } = req.body;
+  const user = await UserModel.findOne({ usernameOremail });
+
+  if (!user) {
+    throw new ApiError(400, "User does not exist");
+  }
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordValid) {
+    throw new ApiError(400, "Username or password is incorrect");
+  }
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+
+  res.json(
+    new ApiResponse(200, "login successful", {
+      token,
+      userID: user._id,
+    })
+  );
+});
+
+export { signUp, signIn };
