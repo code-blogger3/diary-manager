@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const DiarySchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
-    DiaryImgUrl: { type: String },
+    diaryImgUrl: String,
+    text: { type: String, required: true },
     category: [{ type: String }],
   },
   { timestamps: true }

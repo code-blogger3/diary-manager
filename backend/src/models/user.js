@@ -6,7 +6,6 @@ const UserSchema = new mongoose.Schema(
     email: { type: String, required: true },
     password: { type: String, required: true },
     diaryID: [{ type: mongoose.Schema.Types.ObjectId, ref: "Diary" }],
-    diaryTextID: [{ type: mongoose.Schema.Types.ObjectId, ref: "DiaryText" }],
   },
   { timestamps: true }
 );
