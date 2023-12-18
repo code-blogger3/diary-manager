@@ -5,7 +5,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 
 const sendUserDiary = asyncHandler(async (req, res) => {
-  const { userID } = req.params.userID;
+  const { userID } = req.params;
   const user = await UserModel.findById(userID)
     .populate("diaryID")
     .select("-password -__v -username -_id -email");
@@ -18,9 +18,6 @@ const sendUserDiary = asyncHandler(async (req, res) => {
 const postDiary = asyncHandler(async (req, res) => {
   const { userID, title, text, category } = req.body;
   let img = req.body.img;
-  // if (img == null) {
-  //   img = "";
-  // }
 
   const diary = new DiaryModel({
     title,
