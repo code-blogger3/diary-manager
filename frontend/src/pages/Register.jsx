@@ -4,7 +4,6 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  HStack,
   Heading,
   Input,
   InputGroup,
@@ -18,7 +17,6 @@ import React, { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { registerUser } from "../services/authApi";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);

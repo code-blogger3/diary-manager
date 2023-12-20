@@ -15,13 +15,30 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { loginUser } from "../services/authApi";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [inputs, setInputs] = useState({
-    username: "",
+    usernameOremail: "",
     password: "",
   });
+  const [_, setCookies] = useCookies(["access_token"]);
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    try {
+      const result = await loginUser(inputs);
+      // setCookies("access_token", result.data.data.token);
+      // window.localStorage.setItem("userID", result.data.data.userID);
+      // navigate("/");
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <>
       <Flex align={"center"} justify={"center"}>
@@ -43,14 +60,14 @@ function Login() {
           >
             <Stack spacing={4}>
               <FormControl isRequired>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Username or Email</FormLabel>
                 <Input
                   type="text"
-                  value={inputs.username}
+                  value={inputs.usernameOremail}
                   onChange={(e) =>
                     setInputs((inputs) => ({
                       ...inputs,
-                      username: e.target.value,
+                      usernameOremail: e.target.value,
                     }))
                   }
                 />
@@ -89,7 +106,7 @@ function Login() {
                   _hover={{
                     bg: useColorModeValue("gray.700", "gray.800"),
                   }}
-                  //   onClick={handleLogin}
+                  onClick={handleLogin}
                 >
                   Login
                 </Button>
@@ -97,10 +114,7 @@ function Login() {
               <Stack pt={6}>
                 <Text align={"center"}>
                   Don&apos;t have an account?{" "}
-                  <Link
-                    color={"blue.400"}
-                    // onClick={() => setAuthScreen("signup")}
-                  >
+                  <Link color={"blue.400"} onClick={() => navigate("/")}>
                     Sign up
                   </Link>
                 </Text>

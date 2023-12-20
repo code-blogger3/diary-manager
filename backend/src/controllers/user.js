@@ -22,7 +22,9 @@ const signUp = asyncHandler(async (req, res) => {
 
 const signIn = asyncHandler(async (req, res) => {
   const { usernameOremail, password } = req.body;
-  const user = await UserModel.findOne({ usernameOremail });
+  const user = await UserModel.findOne({
+    $or: [{ username: usernameOremail }, { email: usernameOremail }],
+  });
 
   if (!user) {
     throw new ApiError(400, "User does not exist");
