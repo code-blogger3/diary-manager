@@ -31,9 +31,9 @@ function Login() {
   const handleLogin = async () => {
     try {
       const result = await loginUser(inputs);
-      // setCookies("access_token", result.data.data.token);
-      // window.localStorage.setItem("userID", result.data.data.userID);
-      // navigate("/");
+      setCookies("access_token", result.data.data.token);
+      window.localStorage.setItem("userID", result.data.data.userID);
+      navigate("/");
       console.log(result);
     } catch (error) {
       console.error(error);
