@@ -21,7 +21,7 @@ const postDiary = asyncHandler(async (req, res) => {
   let img = req.body.img;
   if (img) {
     const uploadedResponse = await cloudinary.uploader.upload(img);
-    img = uploadedResponse.secure_url;
+    img = uploadedResponse.secure_url; //not sure about this line
   }
   const diary = new DiaryModel({
     title,
@@ -68,7 +68,7 @@ const updateDiary = asyncHandler(async (req, res) => {
   diary.title = title || diary.title;
   diary.text = text || diary.text;
   diary.diaryImgUrl = img || diary.diaryImgUrl;
-  diary.category = category || diary.category; //not sure about this line
+  diary.category = category || diary.category;
   const updatedDiary = await DiaryModel.findByIdAndUpdate(
     diaryID,
     {

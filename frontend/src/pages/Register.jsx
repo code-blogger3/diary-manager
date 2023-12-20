@@ -16,15 +16,28 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { registerUser } from "../services/authApi";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   const [inputs, setInputs] = useState({
-    name: "",
     username: "",
     email: "",
     password: "",
   });
+
+  const handleSignup = async () => {
+    try {
+      await registerUser(inputs);
+      alert("Registration Completed! Now login.");
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <>
       <Flex align={"center"} justify={"center"}>
@@ -40,33 +53,20 @@ function Register() {
             boxShadow={"lg"}
             p={8}
           >
-            <Stack spacing={4}>
-              <HStack>
-                <Box>
-                  <FormControl isRequired>
-                    <FormLabel>Full name</FormLabel>
-                    <Input
-                      type="text"
-                      onChange={(e) =>
-                        setInputs({ ...inputs, name: e.target.value })
-                      }
-                      value={inputs.name}
-                    />
-                  </FormControl>
-                </Box>
-                <Box>
-                  <FormControl isRequired>
-                    <FormLabel>Username</FormLabel>
-                    <Input
-                      type="text"
-                      onChange={(e) =>
-                        setInputs({ ...inputs, username: e.target.value })
-                      }
-                      value={inputs.username}
-                    />
-                  </FormControl>
-                </Box>
-              </HStack>
+            <Stack spacing={5} width={325}>
+              <Box>
+                <FormControl isRequired>
+                  <FormLabel>Username</FormLabel>
+                  <Input
+                    type="text"
+                    onChange={(e) =>
+                      setInputs({ ...inputs, username: e.target.value })
+                    }
+                    value={inputs.username}
+                  />
+                </FormControl>
+              </Box>
+
               <FormControl isRequired>
                 <FormLabel>Email address</FormLabel>
                 <Input
@@ -108,18 +108,15 @@ function Register() {
                   _hover={{
                     bg: useColorModeValue("gray.700", "gray.800"),
                   }}
-                  //   onClick={handleSignup}
+                  onClick={handleSignup}
                 >
                   Sign up
                 </Button>
               </Stack>
               <Stack pt={6}>
                 <Text align={"center"}>
-                  Already a user?{" "}
-                  <Link
-                    color={"blue.400"}
-                    // onClick={() => setAuthScreen("login")}
-                  >
+                  Already a user?
+                  <Link color={"blue.400"} onClick={() => navigate("/login")}>
                     Login
                   </Link>
                 </Text>
