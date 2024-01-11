@@ -18,6 +18,8 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { loginUser } from "../services/authApi";
+import { useDispatch } from "react-redux";
+import { signInSuccess } from "../redux/user/userSlice";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,10 +29,12 @@ function Login() {
   });
   const [_, setCookies] = useCookies(["access_token"]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogin = async () => {
     try {
       const result = await loginUser(inputs);
+      dispatch(signInSuccess(result));
       setCookies("access_token", result.data.data.token);
       window.localStorage.setItem("userID", result.data.data.userID);
       navigate("/");
