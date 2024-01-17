@@ -29,7 +29,7 @@ function App() {
           path: "/login",
           element: <Login />,
         },
-        { path: "/:diaryID", element: <CreateDiary /> },
+        { path: "/createDiary", element: <CreateDiary /> },
       ],
     },
   ]);
