@@ -64,6 +64,7 @@
     top: calc(100% + .25em);
     background-color: white;
     z-index: 100;
+    color: #000;
 }
 
 .options.show {
@@ -73,15 +74,17 @@
 .option {
     padding: .25em .5em;
     cursor: pointer;
+   
 }
 
 .option.selected {
     background-color: hsl(200, 100%, 70%);
+    
 }
 
 .option.highlighted {
     background-color: hsl(200, 100%, 50%);
-    color: white
+    color: black
 }
 
 .option-badge {

@@ -1,29 +1,29 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "../select.module.css";
 
-export function Select({ multiple, value, onChange, options }) {
+export function Select({ value, onChange, options }) {
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
-  const containerRef = useRef < HTMLDivElement > null;
+  const containerRef = useRef();
 
   function clearOptions() {
-    multiple ? onChange([]) : onChange(undefined);
+    onChange([]);
   }
 
   function selectOption(option) {
-    if (multiple) {
-      if (value.includes(option)) {
-        onChange(value.filter((o) => o !== option));
-      } else {
-        onChange([...value, option]);
-      }
+    if (value.includes(option)) {
+      onChange(value.filter((o) => o !== option));
     } else {
-      if (option !== value) onChange(option);
+      onChange([...value, option]);
     }
   }
 
+  // useEffect(() => {
+  //   selectOption(value);
+  // }, []);
+
   function isOptionSelected(option) {
-    return multiple ? value.includes(option) : option === value;
+    return value.includes(option);
   }
 
   useEffect(() => {
@@ -73,21 +73,19 @@ export function Select({ multiple, value, onChange, options }) {
       className={styles.container}
     >
       <span className={styles.value}>
-        {multiple
-          ? value.map((v) => (
-              <button
-                key={v.value}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  selectOption(v);
-                }}
-                className={styles["option-badge"]}
-              >
-                {v.label}
-                <span className={styles["remove-btn"]}>&times;</span>
-              </button>
-            ))
-          : value?.label}
+        {value.map((v, idx) => (
+          <button
+            key={idx}
+            onClick={(e) => {
+              e.stopPropagation();
+              selectOption(v);
+            }}
+            className={styles["option-badge"]}
+          >
+            {v.label}
+            <span className={styles["remove-btn"]}>&times;</span>
+          </button>
+        ))}
       </span>
       <button
         onClick={(e) => {
@@ -109,7 +107,7 @@ export function Select({ multiple, value, onChange, options }) {
               setIsOpen(false);
             }}
             onMouseEnter={() => setHighlightedIndex(index)}
-            key={option.value}
+            key={index}
             className={`${styles.option} ${
               isOptionSelected(option) ? styles.selected : ""
             } ${index === highlightedIndex ? styles.highlighted : ""}`}
