@@ -17,7 +17,7 @@ import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { loginUser } from "../services/authApi";
+import { loginUser } from "../services/authApis";
 import { useDispatch } from "react-redux";
 import { signInSuccess } from "../redux/user/userSlice";
 

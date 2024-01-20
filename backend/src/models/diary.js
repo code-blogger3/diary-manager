@@ -5,7 +5,7 @@ const DiarySchema = new mongoose.Schema(
     title: { type: String, required: true },
     diaryImgUrl: String,
     text: { type: String, required: true },
-    category: [{ type: String }],
+    category: [{ label: String }],
   },
   { timestamps: true }
 );

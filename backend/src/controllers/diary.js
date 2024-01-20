@@ -17,12 +17,13 @@ const sendUserDiary = asyncHandler(async (req, res) => {
 });
 
 const postDiary = asyncHandler(async (req, res) => {
-  const { userID, title, text, category } = req.body;
+  const { title, text, category } = req.body;
+  const { userID } = req.params;
   let img = req.body.img;
-  if (img) {
-    const uploadedResponse = await cloudinary.uploader.upload(img);
-    img = uploadedResponse.secure_url; //not sure about this line
-  }
+  // if (img) {
+  //   const uploadedResponse = await cloudinary.uploader.upload(img);
+  //   img = uploadedResponse.secure_url; //not sure about this line
+  // }
   const diary = new DiaryModel({
     title,
     diaryImgUrl: img,

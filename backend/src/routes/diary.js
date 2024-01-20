@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.get("/:userID", sendUserDiary);
 router.put("/:diaryID", updateDiary);
-router.post("/", postDiary);
+router.post("/:userID", postDiary);
 
 export { router as diaryRouter };

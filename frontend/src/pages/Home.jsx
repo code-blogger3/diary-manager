@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function Home() {
   const { currentUser } = useSelector((state) => state.user);
+  // console.log(currentUser);
   const navigate = useNavigate();
   return (
     <div>

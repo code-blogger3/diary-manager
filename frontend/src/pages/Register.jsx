@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { registerUser } from "../services/authApi";
+import { registerUser } from "../services/authApis";
 import { useNavigate } from "react-router-dom";
 
 function Register() {

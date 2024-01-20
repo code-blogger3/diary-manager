@@ -14,7 +14,10 @@ const diarySlice = createSlice({
       state.category = [...state.category, action.payload];
     },
   },
+  addDiary: (state, action) => {
+    state.diaries = [...state.diaries, action.payload];
+  },
 });
 
-export const { addCategory } = diarySlice.actions;
+export const { addCategory, addDiary } = diarySlice.actions;
 export default diarySlice.reducer;
